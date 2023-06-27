@@ -1,25 +1,16 @@
 import React, { useEffect } from "react";
 import Device from "../components/Device";
-import { Box, ScrollView, View, useToast } from "native-base";
+import { HStack, ScrollView, Spinner, View, } from "native-base";
 import { Platform, SafeAreaView } from "react-native";
 import { Header } from "../components/Header";
-import { getRooms } from "../services/api";
-import { AlertError } from "../components/AlertError";
+import useRooms from "../hooks/useRooms";
 
 export default function Devices() {
-  const toast = useToast();
-  async function handleGet() {
-    try {
-      const response = await getRooms();
-      console.log(response);
-    
-    } catch (error) {
-      AlertError(toast, "Algo deu errado!");
-    }
-  }
+  const [loading, rooms, actions] = useRooms();
 
   useEffect(() => {
-    handleGet();
+    actions.get()
+    console.log(rooms)
   }, []);
 
   const scrollViewHeight = Platform.OS === "ios" ? "100%" : "80";
@@ -29,14 +20,18 @@ export default function Devices() {
       <Header />
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
-          <View>
-            <Device
-              temperature={0}
-              device={"Teste"}
-              local={"Teste"}
-              isEnabled={false}
-            />
-          </View>
+          {loading ? <HStack space={8} justifyContent="center" alignItems="center">
+            <Spinner size="lg" />
+          </HStack>
+            : <View>
+              {rooms.map(room => 
+              <Device
+                temperature={room.air_conditioners.temperature}
+                device={room.sensor}
+                local={room.name}
+                isEnabled={false}
+              />)}
+            </View>}
         </ScrollView>
       </SafeAreaView>
     </>
