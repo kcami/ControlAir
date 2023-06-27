@@ -24,13 +24,14 @@ export default function Devices() {
             <Spinner size="lg" />
           </HStack>
             : <View>
-              {rooms.map(room => 
-              <Device
-                temperature={room.air_conditioners.temperature}
-                device={room.sensor}
-                local={room.name}
-                isEnabled={false}
-              />)}
+              {rooms.map(room =>
+                <Device
+                  key={room.id}
+                  temperature={room.air_conditioners.temperature}
+                  device={room.sensor}
+                  local={room.name}
+                  isEnabled={false}
+                />)}
             </View>}
         </ScrollView>
       </SafeAreaView>
