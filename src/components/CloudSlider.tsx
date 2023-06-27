@@ -3,8 +3,8 @@ import { Box, Icon, Slider, Text, Stack, Badge } from "native-base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function CloudSlider() {
-  const [onChangeValue, setOnChangeValue] = React.useState(70);
-  const [onChangeEndValue, setOnChangeEndValue] = React.useState(70);
+  const [onChangeValue, setOnChangeValue] = React.useState(22);
+  const [onChangeEndValue, setOnChangeEndValue] = React.useState(22);
   return (
     <Box alignItems='center' w='100%' my={10}>
       <Stack space={3} alignItems='center' w='75%' maxW='300'>
@@ -15,7 +15,9 @@ export default function CloudSlider() {
           variant='outline'
         >{`${onChangeValue} °C`}</Badge>
         <Slider
-          defaultValue={70}
+          defaultValue={22}
+          maxValue={35}
+          minValue={10}
           colorScheme='green'
           onChange={(v) => {
             setOnChangeValue(Math.floor(v));

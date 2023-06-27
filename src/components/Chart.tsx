@@ -5,7 +5,7 @@ import { LineChart } from "react-native-chart-kit";
 
 export default function Chart() {
   return (
-    <View>
+    <View mb={20} flex={1} flexDirection={"row"} justifyContent={"center"}>
       <LineChart
         data={{
           labels: ["January", "February", "March", "April", "May", "June"],
@@ -22,15 +22,15 @@ export default function Chart() {
             },
           ],
         }}
-        width={Dimensions.get("window").width} // from react-native
+        width={Dimensions.get("window").width - 20} // from react-native
         height={220}
         yAxisLabel='$'
         yAxisSuffix='k'
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "green",
-          backgroundGradientFrom: "green",
-          backgroundGradientTo: "green",
+          backgroundColor: "#5BB176",
+          backgroundGradientFrom: "#5BB176",
+          backgroundGradientTo: "#5BB176",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -40,7 +40,7 @@ export default function Chart() {
           propsForDots: {
             r: "6",
             strokeWidth: "2",
-            stroke: "green.700",
+            stroke: "white",
           },
         }}
         bezier
