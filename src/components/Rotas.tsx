@@ -37,6 +37,7 @@ export function Rotas() {
           component={Devices}
           options={{
             tabBarLabel: "Dispositivos",
+            unmountOnBlur: true, 
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name='door-open'

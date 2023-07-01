@@ -21,7 +21,7 @@ const AddDevices = () => {
   };
 
   return (
-    <Box m={2} mb={30}>
+    <Box m={2} mb={40} p={10} backgroundColor={"white"} shadow={"9"} borderColor={"transparent"} borderWidth={2} borderRadius={20}>
       <FormControl>
         <Stack space={5}>
           <Text fontSize='xl'>Cadastro de Cômodo</Text>
