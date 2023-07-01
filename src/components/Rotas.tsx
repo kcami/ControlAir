@@ -21,6 +21,7 @@ export function Rotas() {
             fontSize: 15,
             marginBottom: 10,
           },
+          tabBarHideOnKeyboard: true,
           tabBarStyle: {
             height: 90,
             paddingHorizontal: 5,
