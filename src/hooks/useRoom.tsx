@@ -3,7 +3,7 @@ import { RoomCreate } from "../@types/room";
 import { useState } from "react";
 import { AlertError } from "../components/AlertError";
 import { useToast } from "native-base";
-const baseUrl = "http://bore.pub:45220";
+const baseUrl = "http://bore.pub:4460";
 
 export interface RoomsActions {
     get: (roomID?: number) => Promise<void>;
