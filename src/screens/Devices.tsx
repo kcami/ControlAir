@@ -4,6 +4,7 @@ import { HStack, ScrollView, Spinner, View, } from "native-base";
 import { Platform, SafeAreaView } from "react-native";
 import { Header } from "../components/Header";
 import useRooms from "../hooks/useRooms";
+import { HeaderSimple } from "../components/HeaderSimple";
 
 export default function Devices() {
   const [loading, rooms, actions] = useRooms();
@@ -17,19 +18,19 @@ export default function Devices() {
 
   return (
     <>
-      <Header />
+      <HeaderSimple />
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
           {loading ? <HStack space={8} justifyContent="center" alignItems="center">
-            <Spinner size="lg" />
+            <Spinner mt={"50%"} size="lg" />
           </HStack>
             : <View>
               {rooms.map(room =>
                 <Device
                   key={room.id}
-                  temperature={room.air_conditioners.temperature}
-                  device={room.sensor}
-                  local={room.name}
+                  temperature={room.air_conditioners[0].temperature}
+                  device={room.name}
+                  local={room.air_conditioners[0].model}
                   isEnabled={false}
                 />)}
             </View>}
