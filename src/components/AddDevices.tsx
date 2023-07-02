@@ -46,6 +46,9 @@ const AddDevices = () => {
         ],
       };
       actions.post(postObj);
+      setRoomName("")
+      setSensorModel("")
+      setAirConditionerModel("")
     } else {
       AlertError(toast, "Campos incorretos ou não preenchidos!");
     }

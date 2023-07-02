@@ -3,6 +3,7 @@ import { RoomCreate } from "../@types/room";
 import { useState } from "react";
 import { AlertError } from "../components/AlertError";
 import { useToast } from "native-base";
+import { AlertSucess } from "../components/AlertSucess";
 const baseUrl = "http://bore.pub:4460";
 
 export interface RoomsActions {
@@ -16,7 +17,7 @@ export interface RoomsActions {
 }
 
 const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
-    const [room, setRomm] = useState<RoomCreate>(undefined);
+    const [room, setRoom] = useState<RoomCreate>(undefined);
     const [loading, setLoading] = useState(true);
     const toast = useToast()
 
@@ -26,12 +27,12 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
                 setLoading(true);
                 const response = await axios.get(`${baseUrl}/get-room/${roomID}`);
                 if (response.data) {
-                    setRomm(response.data);
+                    setRoom(response.data);
                     setLoading(false);
                 }
             } catch (err) {
                 setLoading(false);
-                AlertError(toast, "GET ROOM WAS NOT POSSIBLE")
+                AlertError(toast, "Não foi possível encontrar o quarto!")
             }
         })
     }
@@ -47,12 +48,13 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
                     putObject
                 );
                 if (response.data) {
-                    setRomm(response.data);
+                    setRoom(response.data);
                     setLoading(false);
+                    AlertSucess(toast, "Quarto atualizado com sucesso!")
                 }
             } catch (err) {
                 setLoading(false);
-                AlertError(toast, "PUT ROOM WAS NOT POSSIBLE")
+                AlertError(toast, "Não foi possível atualizar o quarto!")
             }
         });
     }
@@ -67,12 +69,13 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
                     postObject
                 );
                 if (response.data) {
-                    setRomm(response.data);
+                    setRoom(response.data);
                     setLoading(false);
+                    AlertSucess(toast, "Quarto criado com sucesso!")
                 }
             } catch (err) {
                 setLoading(false);
-                AlertError(toast, "POST ROOM WAS NOT POSSIBLE")
+                AlertError(toast, "Não foi possível criar o quarto!")
             }
         });
     }
@@ -86,10 +89,11 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
                 const response = await axios.delete(`${baseUrl}/delete-room/${roomID}`);
                 if (response.data) {
                     setLoading(false);
+                    AlertSucess(toast, "Quarto removido com sucesso!")
                 }
             } catch (err) {
                 setLoading(false);
-                AlertError(toast, "DELETE ROOM WAS NOT POSSIBLE")
+                AlertError(toast, "Não foi possível remover o quarto!")
             }
         });
     }
