@@ -29,9 +29,9 @@ export default function Devices() {
                 <Device
                   key={room.id}
                   id={room.id}
-                  temperature={room.air_conditioners[0].temperature}
+                  temperature={room.air_conditioners[0]?.temperature}
                   device={room.name}
-                  local={room.air_conditioners[0].model}
+                  local={room.air_conditioners[0]?.model}
                   isEnabled={false}
                 />)}
             </View>}
