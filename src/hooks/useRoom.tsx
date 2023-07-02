@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AlertError } from "../components/AlertError";
 import { useToast } from "native-base";
 import { AlertSucess } from "../components/AlertSucess";
-const baseUrl = "http://bore.pub:4460";
+const baseUrl = "http://bore.pub:43245";
 
 export interface RoomsActions {
     get: (roomID?: string) => Promise<void>;
