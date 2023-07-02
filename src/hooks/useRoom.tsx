@@ -11,8 +11,8 @@ export interface RoomsActions {
         roomID: string,
         putObject: any
     ) => Promise<void>;
-    post: (roomID: string, postObject: any) => Promise<void>;
-    delete: (roomID: string) => Promise<void>;
+    post: (postObject: any) => Promise<void>;
+    delete: (roomID: number) => Promise<void>;
 }
 
 const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
@@ -63,7 +63,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
         await new Promise(async (resolve) => {
             try {
                 setLoading(true);
-                const response = await axios.post(`${baseUrl}/get-room`,
+                const response = await axios.post(`${baseUrl}/create-room`,
                     postObject
                 );
                 if (response.data) {
@@ -83,7 +83,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
         await new Promise(async (resolve) => {
             try {
                 setLoading(true);
-                const response = await axios.delete(`${baseUrl}/get-room/${roomID}`);
+                const response = await axios.delete(`${baseUrl}/delete-room/${roomID}`);
                 if (response.data) {
                     setLoading(false);
                 }
