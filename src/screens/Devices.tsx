@@ -20,11 +20,11 @@ export default function Devices() {
     <>
       <HeaderSimple title="Dispositivos" />
       <SafeAreaView>
-        <ScrollView h={scrollViewHeight}>
+        <ScrollView h={scrollViewHeight} >
           {loading ? <HStack space={8} justifyContent="center" alignItems="center">
             <Spinner mt={"50%"} size="lg" />
           </HStack>
-            : <View mt={5}>
+            : <View mt={5} mb={350}>
               {rooms.map(room =>
                 <Device
                   key={room.id}
