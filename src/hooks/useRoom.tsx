@@ -12,7 +12,7 @@ export interface RoomsActions {
         roomID: string,
         putObject: any
     ) => Promise<void>;
-    putTemperature: (airconditionerID: string, temperature: number) => Promise<void>
+    putTemperature: (airconditionerID: string, temperature: any) => Promise<void>
     post: (postObject: any) => Promise<void>;
     delete: (roomID: string) => Promise<void>;
 }
@@ -62,7 +62,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
 
     async function putTemperature(
         airconditionerID: string,
-        putObject: number
+        putObject: any
     ): Promise<void> {
         await new Promise(async (resolve) => {
             try {

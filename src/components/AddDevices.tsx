@@ -15,7 +15,7 @@ import useRoom from "../hooks/useRoom";
 import { AlertError } from "./AlertError";
 
 const AddDevices = () => {
-  const [loading, room, actions] = useRoom();
+  const [_, __, actions] = useRoom();
   const toast = useToast();
   const [roomName, setRoomName] = useState("");
   const [sensorModel, setSensorModel] = useState("");
@@ -34,7 +34,6 @@ const AddDevices = () => {
   };
 
   const handleCreateAirConditioner = () => {
-    console.log(roomName, sensorModel, airConditionerModel);
     if (roomName && sensorModel && airConditionerModel) {
       const postObj = {
         name: roomName,

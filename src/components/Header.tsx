@@ -22,7 +22,8 @@ import useRooms from "../hooks/useRooms";
 import useRoom from "../hooks/useRoom";
 import { RoomGet } from "../@types/room";
 
-export function Header() {
+export function Header(props) {
+  const {setRoomID} = props
   const [loadings, rooms, actions] = useRooms();
   const [loading, room, action] = useRoom();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
@@ -34,8 +35,9 @@ export function Header() {
     if (!loadings && !room) {
       action.get(rooms[0].id);
       setSelectedRoom(rooms[0].id);
+      setRoomID(room[0].id)
     }
-  }, [rooms]);
+  }, []);
   return (
     <>
       <StatusBar backgroundColor='black' barStyle='light-content' />
@@ -80,6 +82,7 @@ export function Header() {
             onValueChange={(nextValue) => {
               setSelectedRoom(nextValue);
               action.get(nextValue);
+              setRoomID(nextValue)
             }}
             borderColor='white'
             _selectedItem={{

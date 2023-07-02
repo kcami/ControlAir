@@ -7,14 +7,15 @@ import Chart from "../components/Chart";
 
 export default function Home() {
   const scrollViewHeight = Platform.OS === "ios" ? "100%" : "80";
+  const [roomID, setRoomID] = useState(null);
 
   return (
     <>
-      <Header/>
+      <Header setRoomID={setRoomID}/>
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
           <View>
-            <CloudSlider />
+            <CloudSlider roomID={roomID} />
             <Chart />
           </View>
         </ScrollView>

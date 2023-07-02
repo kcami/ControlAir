@@ -1,37 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
-  Center,
   HStack,
   StatusBar,
   Text,
   Image,
-  VStack,
-  Flex,
-  Menu,
-  Pressable,
-  HamburgerIcon,
-  ArrowDownIcon,
-  Select,
-  CheckIcon,
 } from "native-base";
 import Logo from "../images/logo.png";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface Header {
   title: string;
 }
 
 export function HeaderSimple({title}: Header) {
-  const [rooms, setRooms] = useState([
-    "Quarto",
-    "Sala",
-    "Banheiro",
-    "Corredor",
-  ]);
-  const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
-  const [temperature, setTemperature] = useState(20.5);
-  const [humidity, setHumidity] = useState(70.5);
   return (
     <>
       <StatusBar backgroundColor='black' barStyle='light-content' />

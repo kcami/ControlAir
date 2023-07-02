@@ -33,9 +33,7 @@ export default function ({
   humidity,
   air_conditioner,
 }: RoomGet) {
-  const [loading, room, actions] = useRoom();
-  const [loadings, rooms, actionsRooms] = useRoom();
-  const navigation = useNavigation();
+  const [_, __, actions] = useRoom();
   const toast = useToast();
   const [roomName, setRoomName] = useState(name);
   const [sensorModel, setSensorModel] = useState(sensor);
