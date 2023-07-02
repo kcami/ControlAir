@@ -6,13 +6,13 @@ import { useToast } from "native-base";
 const baseUrl = "http://bore.pub:4460";
 
 export interface RoomsActions {
-    get: (roomID?: number) => Promise<void>;
+    get: (roomID?: string) => Promise<void>;
     put: (
-        roomID: number,
+        roomID: string,
         putObject: any
     ) => Promise<void>;
-    post: (roomID: number, postObject: any) => Promise<void>;
-    delete: (roomID: number) => Promise<void>;
+    post: (roomID: string, postObject: any) => Promise<void>;
+    delete: (roomID: string) => Promise<void>;
 }
 
 const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
@@ -20,7 +20,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
     const [loading, setLoading] = useState(true);
     const toast = useToast()
 
-    async function getRoom(roomID: number) {
+    async function getRoom(roomID: string) {
         await new Promise(async (resolve) => {
             try {
                 setLoading(true);
@@ -37,7 +37,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
     }
 
     async function putRoom(
-        roomID: number,
+        roomID: string,
         putObject: RoomCreate
     ): Promise<void> {
         await new Promise(async (resolve) => {
@@ -78,7 +78,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
     }
 
     async function deleteRoom(
-        roomID: number,
+        roomID: string,
     ) {
         await new Promise(async (resolve) => {
             try {
