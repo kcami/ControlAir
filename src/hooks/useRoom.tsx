@@ -12,7 +12,7 @@ export interface RoomsActions {
         putObject: any
     ) => Promise<void>;
     post: (postObject: any) => Promise<void>;
-    delete: (roomID: number) => Promise<void>;
+    delete: (roomID: string) => Promise<void>;
 }
 
 const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
