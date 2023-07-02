@@ -107,8 +107,8 @@ export default function ({
             >{`${temperature}° C`}</Badge>
           </HStack>
           <Box px='4'>
-            <Text fontSize={15}>{`${name}`}</Text>
-            <Text fontSize={15} color={"gray.400"}>{`${air_conditioner.model}`}</Text>
+            <Text fontSize={15} maxWidth={"150px"}>{`${name}`}</Text>
+            <Text fontSize={15} maxWidth={"150px"} color={"gray.400"}>{`${air_conditioner.model}`}</Text>
           </Box>
           <Pressable
             accessibilityLabel='Deletar'
