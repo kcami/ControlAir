@@ -8,7 +8,7 @@ export default function Add() {
   const scrollViewHeight = Platform.OS === "ios" ? "100%" : "80";
   return (
     <>
-      <HeaderSimple />
+      <HeaderSimple title={"Adicionar novos dispositivos"}/>
       <KeyboardAvoidingView behavior={"height"}>
         <SafeAreaView>
           <ScrollView p={3}>

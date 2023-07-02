@@ -18,7 +18,11 @@ import {
 import Logo from "../images/logo.png";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export function HeaderSimple() {
+interface Header {
+  title: string;
+}
+
+export function HeaderSimple({title}: Header) {
   const [rooms, setRooms] = useState([
     "Quarto",
     "Sala",
@@ -59,7 +63,7 @@ export function HeaderSimple() {
               aspectRatio: 5,
             }}
           />
-          <Text mt={7} color={"white"} fontSize={"2xl"}>Adicionar novos dispositivos</Text>
+          <Text mt={7} color={"white"} fontSize={"2xl"}>{title}</Text>
         </Box>
       </HStack>
     </>

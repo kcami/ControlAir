@@ -18,16 +18,17 @@ export default function Devices() {
 
   return (
     <>
-      <HeaderSimple />
+      <HeaderSimple title="Dispositivos" />
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
           {loading ? <HStack space={8} justifyContent="center" alignItems="center">
             <Spinner mt={"50%"} size="lg" />
           </HStack>
-            : <View>
+            : <View mt={5}>
               {rooms.map(room =>
                 <Device
                   key={room.id}
+                  id={room.id}
                   temperature={room.air_conditioners[0].temperature}
                   device={room.name}
                   local={room.air_conditioners[0].model}
