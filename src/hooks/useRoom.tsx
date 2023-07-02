@@ -71,7 +71,6 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
                     putObject
                 );
                 if (response.data) {
-                    setRoom(response.data);
                     setLoading(false);
                     AlertSucess(toast, "Temperatura atualizado com sucesso!")
                 }

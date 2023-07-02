@@ -53,7 +53,7 @@ export default function ({
   };
 
   const handleUpdateAirConditioner = () => {
-    console.log(roomName, sensorModel, airConditionerModel);
+    // console.log(roomName, sensorModel, airConditionerModel);
     if (roomName && sensorModel && airConditionerModel) {
       const postObj = {
         name: roomName,
