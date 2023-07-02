@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Box, Icon, Slider, Text, Stack, Badge } from "native-base";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import useRoom from "../hooks/useRoom";
 
 export default function CloudSlider() {
   const [onChangeValue, setOnChangeValue] = React.useState(22);
   const [onChangeEndValue, setOnChangeEndValue] = React.useState(22);
+  const [_, room, actions] = useRoom();
   return (
     <Box alignItems='center' w='100%' my={10}>
       <Stack space={3} alignItems='center' w='75%' maxW='300'>
@@ -24,6 +26,7 @@ export default function CloudSlider() {
           }}
           onChangeEnd={(v) => {
             v && setOnChangeEndValue(Math.floor(v));
+            actions.putTemperature(room.air_conditioners[0].id, v);
           }}
         >
           <Slider.Track bg="primary.100">

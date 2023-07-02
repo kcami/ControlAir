@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -14,20 +14,28 @@ import {
   ArrowDownIcon,
   Select,
   CheckIcon,
+  Spinner,
 } from "native-base";
 import Logo from "../images/logo.png";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import useRooms from "../hooks/useRooms";
+import useRoom from "../hooks/useRoom";
+import { RoomGet } from "../@types/room";
 
 export function Header() {
-  const [rooms, setRooms] = useState([
-    "Quarto",
-    "Sala",
-    "Banheiro",
-    "Corredor",
-  ]);
+  const [loadings, rooms, actions] = useRooms();
+  const [loading, room, action] = useRoom();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
-  const [temperature, setTemperature] = useState(20.5);
-  const [humidity, setHumidity] = useState(70.5);
+  const [temperature, setTemperature] = useState(rooms[0]?.temperature);
+  const [humidity, setHumidity] = useState(rooms[0]?.humidity);
+
+  useEffect(() => {
+    actions.get();
+    if (!loadings && !room) {
+      action.get(rooms[0].id);
+      setSelectedRoom(rooms[0].id);
+    }
+  }, [rooms]);
   return (
     <>
       <StatusBar backgroundColor='black' barStyle='light-content' />
@@ -69,7 +77,10 @@ export function Header() {
               md: "1",
             }}
             variant='rounded'
-            onValueChange={(nextValue) => setSelectedRoom(nextValue)}
+            onValueChange={(nextValue) => {
+              setSelectedRoom(nextValue);
+              action.get(nextValue);
+            }}
             borderColor='white'
             _selectedItem={{
               borderColor: "primary.300",
@@ -82,26 +93,55 @@ export function Header() {
           >
             {rooms.map((item, key) => {
               return (
-                <Select.Item key={key} label={`${item}`} value={`${item}`} />
+                <Select.Item
+                  key={key}
+                  label={`${item.name}`}
+                  value={`${item.id}`}
+                />
               );
             })}
           </Select>
-          <Flex mt={5} flex={1} flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
-            <HStack flex={1} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                <MaterialCommunityIcons
+
+          <Flex
+            mt={5}
+            flex={1}
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <HStack
+              flex={1}
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <MaterialCommunityIcons
                 name='thermometer-lines'
                 color={"white"}
                 size={30}
-                />
-                <Text ml={2} fontSize={15} color={"white"}>{`${temperature}°C`}</Text>
+              />
+              <Text
+                ml={2}
+                fontSize={15}
+                color={"white"}
+              >{`${room?.temperature}°C`}</Text>
             </HStack>
-            <HStack flex={1} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                <MaterialCommunityIcons
+            <HStack
+              flex={1}
+              flexDirection={"row"}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
+              <MaterialCommunityIcons
                 name='weather-rainy'
                 color={"white"}
                 size={30}
-                />
-                <Text ml={2} fontSize={15} color={"white"}>{`${humidity}%`}</Text>
+              />
+              <Text
+                ml={2}
+                fontSize={15}
+                color={"white"}
+              >{`${room?.humidity}%`}</Text>
             </HStack>
           </Flex>
         </Box>

@@ -12,6 +12,7 @@ export interface RoomsActions {
         roomID: string,
         putObject: any
     ) => Promise<void>;
+    putTemperature: (airconditionerID: string, temperature: number) => Promise<void>
     post: (postObject: any) => Promise<void>;
     delete: (roomID: string) => Promise<void>;
 }
@@ -44,7 +45,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
         await new Promise(async (resolve) => {
             try {
                 setLoading(true);
-                const response = await axios.put(`${baseUrl}/get-room/${roomID}`,
+                const response = await axios.put(`${baseUrl}/update-room/${roomID}`,
                     putObject
                 );
                 if (response.data) {
@@ -55,6 +56,28 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
             } catch (err) {
                 setLoading(false);
                 AlertError(toast, "Não foi possível atualizar o quarto!")
+            }
+        });
+    }
+
+    async function putTemperature(
+        airconditionerID: string,
+        putObject: number
+    ): Promise<void> {
+        await new Promise(async (resolve) => {
+            try {
+                setLoading(true);
+                const response = await axios.put(`${baseUrl}/update-air_conditioner/${airconditionerID}`,
+                    putObject
+                );
+                if (response.data) {
+                    setRoom(response.data);
+                    setLoading(false);
+                    AlertSucess(toast, "Temperatura atualizado com sucesso!")
+                }
+            } catch (err) {
+                setLoading(false);
+                AlertError(toast, "Não foi possível atualizar a temperatura!")
             }
         });
     }
@@ -104,6 +127,7 @@ const useRoom = (): [boolean, RoomCreate | undefined, RoomsActions] => {
         {
             get: getRoom,
             put: putRoom,
+            putTemperature: putTemperature,
             post: postRoom,
             delete: deleteRoom,
         },
