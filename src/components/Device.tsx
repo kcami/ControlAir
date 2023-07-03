@@ -33,9 +33,7 @@ export default function ({
   humidity,
   air_conditioner,
 }: RoomGet) {
-  const [loading, room, actions] = useRoom();
-  const [loadings, rooms, actionsRooms] = useRoom();
-  const navigation = useNavigation();
+  const [_, __, actions] = useRoom();
   const toast = useToast();
   const [roomName, setRoomName] = useState(name);
   const [sensorModel, setSensorModel] = useState(sensor);
@@ -55,7 +53,7 @@ export default function ({
   };
 
   const handleUpdateAirConditioner = () => {
-    console.log(roomName, sensorModel, airConditionerModel);
+    // console.log(roomName, sensorModel, airConditionerModel);
     if (roomName && sensorModel && airConditionerModel) {
       const postObj = {
         name: roomName,
@@ -109,8 +107,8 @@ export default function ({
             >{`${temperature}° C`}</Badge>
           </HStack>
           <Box px='4'>
-            <Text fontSize={15}>{`${name}`}</Text>
-            <Text fontSize={15} color={"gray.400"}>{`${air_conditioner.model}`}</Text>
+            <Text fontSize={15} maxWidth={"150px"}>{`${name}`}</Text>
+            <Text fontSize={15} maxWidth={"150px"} color={"gray.400"}>{`${air_conditioner.model}`}</Text>
           </Box>
           <Pressable
             accessibilityLabel='Deletar'

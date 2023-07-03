@@ -1,41 +1,56 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Center,
   HStack,
   StatusBar,
   Text,
   Image,
-  VStack,
   Flex,
-  Menu,
-  Pressable,
-  HamburgerIcon,
-  ArrowDownIcon,
   Select,
-  CheckIcon,
-  Spinner,
 } from "native-base";
 import Logo from "../images/logo.png";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import useRooms from "../hooks/useRooms";
 import useRoom from "../hooks/useRoom";
-import { RoomGet } from "../@types/room";
 
-export function Header() {
+export function Header(props) {
+  const {setRoomID} = props
   const [loadings, rooms, actions] = useRooms();
   const [loading, room, action] = useRoom();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
-  const [temperature, setTemperature] = useState(rooms[0]?.temperature);
-  const [humidity, setHumidity] = useState(rooms[0]?.humidity);
+
+  const [websocketValue, setWebsocketValue] = useState("");
+
+  useEffect(()=>{
+    console.log(websocketValue)
+  },[websocketValue])
+
+  useEffect(() => {
+    const handleWebSocketMessage = (event) => {
+      const message = event.data;
+      setWebsocketValue(message);
+    };
+  
+    const websocketURL = "ws://bore.pub:43245/ws";
+    const websocket = new WebSocket(websocketURL);
+  
+    websocket.onmessage = handleWebSocketMessage;
+  
+    return () => {
+      websocket.close();
+    };
+    
+  }, []);
 
   useEffect(() => {
     actions.get();
     if (!loadings && !room) {
       action.get(rooms[0].id);
       setSelectedRoom(rooms[0].id);
+      setRoomID(room[0].id)
     }
-  }, [rooms]);
+  }, []);
+
   return (
     <>
       <StatusBar backgroundColor='black' barStyle='light-content' />
@@ -80,6 +95,7 @@ export function Header() {
             onValueChange={(nextValue) => {
               setSelectedRoom(nextValue);
               action.get(nextValue);
+              setRoomID(nextValue)
             }}
             borderColor='white'
             _selectedItem={{
