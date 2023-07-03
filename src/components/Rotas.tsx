@@ -12,7 +12,7 @@ export function Rotas() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName='Add'
+        initialRouteName='Home'
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarActiveTintColor: "#9AE89E",

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Platform, SafeAreaView } from "react-native";
-import { ScrollView, View } from "native-base";
+import { ScrollView, View, Image } from "native-base";
 import { Header } from "../components/Header";
 import CloudSlider from "../components/CloudSlider";
-import Chart from "../components/Chart";
+import Air from "../images/ar-condicionado.png";;
 
 export default function Home() {
   const scrollViewHeight = Platform.OS === "ios" ? "100%" : "80";
@@ -11,12 +11,16 @@ export default function Home() {
 
   return (
     <>
-      <Header setRoomID={setRoomID}/>
+      <Header setRoomID={setRoomID} />
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
           <View>
             <CloudSlider roomID={roomID} />
-            <Chart />
+            <Image
+              source={Air}
+              alt='ControlAir Air'
+              style={{ margin: -20, alignSelf: "center" }}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
