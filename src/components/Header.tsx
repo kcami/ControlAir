@@ -14,33 +14,33 @@ import useRooms from "../hooks/useRooms";
 import useRoom from "../hooks/useRoom";
 
 export function Header(props) {
-  const {roomID, setRoomID} = props
+  const { roomID, setRoomID } = props
   const [loadings, rooms, actions] = useRooms();
   const [loading, room, action] = useRoom();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]?.id);
   const [roomList, setRoomList] = useState([])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(roomList)
-  },[roomList])
+  }, [roomList])
 
   useEffect(() => {
     const handleWebSocketMessage = (event) => {
-      const message = event.data;      
+      const message = event.data;
       setRoomList((JSON.parse(message)).message);
       action.get(roomID)
     };
-  
+
     const websocketURL = "ws://bore.pub:64995/ws";
     const websocket = new WebSocket(websocketURL);
-  
+
     websocket.onmessage = handleWebSocketMessage;
-  
+
     return () => {
       websocket.close();
     };
-    
+
   }, []);
 
   useEffect(() => {
@@ -48,10 +48,10 @@ export function Header(props) {
   }, []);
 
   useEffect(() => {
-      setRoomList(rooms)
-      action.get(rooms[0]?.id);
-      setSelectedRoom(rooms[0]?.id);
-      setRoomID(rooms[0]?.id)
+    setRoomList(rooms)
+    action.get(rooms[0]?.id);
+    setSelectedRoom(rooms[0]?.id);
+    setRoomID(rooms[0]?.id)
   }, [rooms]);
 
   return (
@@ -121,7 +121,7 @@ export function Header(props) {
             })}
           </Select>
 
-          <Flex
+          {!loading ? <Flex
             mt={5}
             flex={1}
             flexDirection={"row"}
@@ -162,7 +162,7 @@ export function Header(props) {
                 color={"white"}
               >{`${room?.humidity}%`}</Text>
             </HStack>
-          </Flex>
+          </Flex> : null}
         </Box>
       </HStack>
     </>
