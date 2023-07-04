@@ -27,11 +27,11 @@ export function Header(props) {
 
   useEffect(() => {
     const handleWebSocketMessage = (event) => {
-      const message = event.data;
-      setRoomList(message);
+      const message = event.data;      
+      setRoomList((JSON.parse(message)).message);
     };
   
-    const websocketURL = "ws://bore.pub:43245/ws";
+    const websocketURL = "ws://bore.pub:64995/ws";
     const websocket = new WebSocket(websocketURL);
   
     websocket.onmessage = handleWebSocketMessage;
