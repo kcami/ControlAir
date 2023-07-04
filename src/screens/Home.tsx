@@ -3,7 +3,7 @@ import { Platform, SafeAreaView } from "react-native";
 import { ScrollView, View, Image } from "native-base";
 import { Header } from "../components/Header";
 import CloudSlider from "../components/CloudSlider";
-import Air from "../images/ar-condicionado.png";;
+import Air from "../images/ar-condicionado.png";
 
 export default function Home() {
   const scrollViewHeight = Platform.OS === "ios" ? "100%" : "80";
