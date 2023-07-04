@@ -14,7 +14,7 @@ import useRooms from "../hooks/useRooms";
 import useRoom from "../hooks/useRoom";
 
 export function Header(props) {
-  const {setRoomID} = props
+  const {roomID, setRoomID} = props
   const [loadings, rooms, actions] = useRooms();
   const [loading, room, action] = useRoom();
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]?.id);
@@ -29,6 +29,7 @@ export function Header(props) {
     const handleWebSocketMessage = (event) => {
       const message = event.data;      
       setRoomList((JSON.parse(message)).message);
+      action.get(roomID)
     };
   
     const websocketURL = "ws://bore.pub:64995/ws";

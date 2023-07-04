@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <>
-      <Header setRoomID={setRoomID} />
+      <Header roomID={roomID} setRoomID={setRoomID} />
       <SafeAreaView>
         <ScrollView h={scrollViewHeight}>
           <View>
