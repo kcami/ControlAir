@@ -22,14 +22,14 @@ export function Header(props) {
 
 
   useEffect(() => {
-    console.log(roomList)
+    action.get(roomID)
   }, [roomList])
 
   useEffect(() => {
     const handleWebSocketMessage = (event) => {
       const message = event.data;
       setRoomList((JSON.parse(message)).message);
-      action.get(roomID)
+
     };
 
     const websocketURL = "ws://bore.pub:64995/ws";
@@ -115,13 +115,13 @@ export function Header(props) {
                 <Select.Item
                   key={key}
                   label={`${item.name}`}
-                  value={`${item.id}`}
+                  value={item.id}
                 />
               );
             })}
           </Select>
 
-          {!loading ? <Flex
+          <Flex
             mt={5}
             flex={1}
             flexDirection={"row"}
@@ -162,7 +162,7 @@ export function Header(props) {
                 color={"white"}
               >{`${room?.humidity}%`}</Text>
             </HStack>
-          </Flex> : null}
+          </Flex> 
         </Box>
       </HStack>
     </>
