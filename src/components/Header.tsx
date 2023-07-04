@@ -17,18 +17,18 @@ export function Header(props) {
   const {setRoomID} = props
   const [loadings, rooms, actions] = useRooms();
   const [loading, room, action] = useRoom();
-  const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
+  const [selectedRoom, setSelectedRoom] = useState(rooms[0]?.id);
+  const [roomList, setRoomList] = useState([])
 
-  const [websocketValue, setWebsocketValue] = useState("");
 
   useEffect(()=>{
-    console.log(websocketValue)
-  },[websocketValue])
+    console.log(roomList)
+  },[roomList])
 
   useEffect(() => {
     const handleWebSocketMessage = (event) => {
       const message = event.data;
-      setWebsocketValue(message);
+      setRoomList(message);
     };
   
     const websocketURL = "ws://bore.pub:43245/ws";
@@ -44,12 +44,14 @@ export function Header(props) {
 
   useEffect(() => {
     actions.get();
-    if (!loadings && !room) {
-      action.get(rooms[0].id);
-      setSelectedRoom(rooms[0].id);
-      setRoomID(room[0].id)
-    }
   }, []);
+
+  useEffect(() => {
+      setRoomList(rooms)
+      action.get(rooms[0]?.id);
+      setSelectedRoom(rooms[0]?.id);
+      setRoomID(rooms[0]?.id)
+  }, [rooms]);
 
   return (
     <>
@@ -107,7 +109,7 @@ export function Header(props) {
             w={200}
             accessibilityLabel='Selecione o quarto'
           >
-            {rooms.map((item, key) => {
+            {roomList.map((item, key) => {
               return (
                 <Select.Item
                   key={key}
